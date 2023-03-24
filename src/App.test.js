@@ -29,3 +29,30 @@ test('button turns blue when clicked', () => {
   //expect the btn text to be 'change to red'
   expect(colorBtn).toHaveTextContent('Change to red');
 });
+
+test('Checkbox should exist and be uncheck, the button should be enabled', () => {
+
+  render(<App/>);
+  // Button should be enabled
+  const colorBtn = screen.getByRole('button', { name: 'Change to blue'});
+  expect(colorBtn).toBeEnabled();
+
+  // Checkbox is unchecked
+  const checkbox = screen.getByRole('checkbox');
+  expect(checkbox).not.toBeChecked();
+})
+
+test('When the checkbox is checked, button should be disabled', () => {
+
+  render(<App/>);
+  // initially checkbox should be unchecked
+  const checkbox = screen.getByRole('checkbox');
+  const btnColor = screen.getByRole('button');
+
+  expect(checkbox).not.toBeChecked();
+
+  // After click should be checked and button disabled.
+  fireEvent.click(checkbox);
+  expect(checkbox).toBeChecked();
+  expect(btnColor).toBeDisabled();
+})
