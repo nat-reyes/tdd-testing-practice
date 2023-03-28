@@ -46,7 +46,8 @@ test('When the checkbox is checked, button should be disabled', () => {
 
   render(<App/>);
   // initially checkbox should be unchecked
-  const checkbox = screen.getByRole('checkbox');
+  // RTL is smart to know that an id that also belongs to a label is referencing the same component
+  const checkbox = screen.getByRole('checkbox', { name: "Disable bgutton"});
   const btnColor = screen.getByRole('button');
 
   expect(checkbox).not.toBeChecked();
@@ -56,3 +57,4 @@ test('When the checkbox is checked, button should be disabled', () => {
   expect(checkbox).toBeChecked();
   expect(btnColor).toBeDisabled();
 })
+
